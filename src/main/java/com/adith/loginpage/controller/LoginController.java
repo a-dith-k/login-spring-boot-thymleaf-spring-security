@@ -1,0 +1,44 @@
+package com.adith.loginpage.controller;
+
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class LoginController {
+
+    @GetMapping("/login")
+    public String login() {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication==null || authentication instanceof AnonymousAuthenticationToken){
+            return "normal/user_login";
+        }else{
+            return "redirect:/home";
+        }
+
+
+    }
+
+    @GetMapping("/home")
+    public String  index(){
+        return "normal/user_home";
+    }
+    
+
+//    @PostMapping("/login")
+//    public String loginwelcome() {
+//
+//            return "normal/user_home";
+//    }
+
+//    @PostMapping("/home")
+//    public String welcome() {
+//
+//        return "normal/user_login";
+//
+//    }
+}
